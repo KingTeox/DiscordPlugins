@@ -150,6 +150,8 @@ class HideChannels {
 					BdApi.saveData(config.info.id, "keybind", e);
 					//And the keybindSetting
 					this.keybindSetting = this.checkKeybindLoad(e);
+
+					console.log(`Supplied keybind: ${e} \r\nFiltered keybind: ${this.keybind} \r\nReloaded keybind: ${this.keybindSetting}`);
 				}
 			}));
 	}
