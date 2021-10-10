@@ -192,9 +192,13 @@ class HideChannels {
 	useListener(event, callback, bubbling, target = document) {
 		BdApi.React.useEffect(() => {
 			//ComponentDidMount
+			console.log(`Did mount.`)
 			target.addEventListener(event, callback, bubbling);
 			//ComponentWillUnmount
-			return () => target.removeEventListener(event, callback, bubbling);
+			return () => {
+				console.log(`Will unmount.`)
+				target.removeEventListener(event, callback, bubbling);
+			}
 		});
 	}
 
@@ -216,6 +220,9 @@ class HideChannels {
 			//Since we made this an object,
 			//we can make new propertire with `[]`
 			this.currentlyPressed[e.keyCode] = true;
+
+			console.log(`Key down event: ${e.keyCode}`);
+
 			//Account for bubbling and attach to the global: `window`
 		}, true, window);
 
@@ -228,6 +235,9 @@ class HideChannels {
 
 			//Current key goes up, so...
 			this.currentlyPressed[e.keyCode] = false;
+
+			console.log(`Key up event: ${e.keyCode}`);
+
 			//Account for bubbling and attach to the global: `window`
 		}, true, window);
 
@@ -250,6 +260,7 @@ class HideChannels {
 	 * @returns The passed state in reverse.
 	 */
 	toggleSidebar(sidebar) {
+
 		/**
 		 * @param {boolean} state State that determines the toggle.
 		 */
@@ -261,6 +272,9 @@ class HideChannels {
 			//If it is hidden, we need to show it.
 			else
 				sidebar.classList.remove(config.constants.hideElementsName);
+
+			console.log(`Into Toggle: ${state} \r\nWith keybind: ${this.keybind} - ${this.keybindSetting}`)
+
 			return !state;
 		};
 	}
